@@ -1,11 +1,11 @@
-.importzp ptr1, next_buf, current_buf
+.importzp ptr1
 
 .export _init_buffers
 .export buf0
 .export buf1
 
-row_i = 2
-col_i = 2
+row_i = 5
+col_i = 5
 
 .macro staddr  addr, ptr
     lda #<addr
@@ -16,7 +16,7 @@ col_i = 2
 
 .macro initcell row, col, val
 .scope
-    staddr buf0, ptr1
+    staddr buf1, ptr1
     lda ptr1
     ldy #row
     clc
@@ -39,9 +39,6 @@ col_i = 2
 .endmacro
 
 .proc _init_buffers
-    staddr buf0, current_buf
-    staddr buf1, next_buf
-
 .scope
     lda #0
     ldx #0
