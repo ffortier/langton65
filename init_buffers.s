@@ -1,4 +1,4 @@
-.importzp ptr1
+.importzp ptr1, next_buf, current_buf
 
 .export _init_buffers
 .export buf0
@@ -183,10 +183,6 @@ col_i = 2
 
     rts
 .endproc
-
-.segment "MYZP"
-current_buf: .res 2
-next_buf: .res 2
 
 .segment "BSS"
 

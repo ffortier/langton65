@@ -18,11 +18,13 @@ int main() {
     clrscr();
 
     POKE(53272, 21);  // Enable uppercase + graphics mode
+    POKE(53281, 0); // Background
+    POKE(53280, 0); // Border
+
+    memset(1024, 160, 1024);
 
     init_lookup();
     init_buffers();
-    
-    memset(1024, 160, 1024);
 
     while(1) {
         render_buffer();

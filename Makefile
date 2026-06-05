@@ -1,6 +1,6 @@
 .PHONY: all run clean
 
-OBJECTS=build/main.o build/ruleset.o build/match.o build/init_lookup.o build/render_buffer.o build/init_buffers.o
+OBJECTS=build/main.o build/ruleset.o build/match.o build/init_lookup.o build/render_buffer.o build/init_buffers.o build/zeropage.o
 CFLAGS=-O -t c64
 LDFLAGS=-C c64-langton.cfg
 
@@ -16,19 +16,23 @@ build/langton.prg: $(OBJECTS) c64-langton.cfg
 	mkdir -p build
 	cl65 $(LDFLAGS) -o $@ $(OBJECTS)
 
-build/match.o: match.s 
+build/match.o: match.s
 	mkdir -p build
 	ca65 -o $@ $^
 
-build/init_lookup.o: init_lookup.s 
+build/init_lookup.o: init_lookup.s
 	mkdir -p build
 	ca65 -o $@ $^
 
-build/init_buffers.o: init_buffers.s 
+build/init_buffers.o: init_buffers.s
 	mkdir -p build
 	ca65 -o $@ $^
 
-build/render_buffer.o: render_buffer.s 
+build/render_buffer.o: render_buffer.s
+	mkdir -p build
+	ca65 -o $@ $^
+
+build/zeropage.o: zeropage.s
 	mkdir -p build
 	ca65 -o $@ $^
 

@@ -1,7 +1,7 @@
 .import _r0, _r1, _r2, _r3, _r4, _r5, _r6, _r7
+.importzp ruleset_lookup
 
 .export _init_lookup
-.export ruleset_lookup
 
 .macro staddr  addr, ptr
     lda #<addr
@@ -21,7 +21,3 @@
     staddr _r7, ruleset_lookup + 14
     rts
 .endproc
-
-.segment "MYZP"
-
-ruleset_lookup: .res 16
