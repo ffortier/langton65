@@ -1,0 +1,17 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@pypi//:requirements.bzl","requirement")
+package(default_visibility = ["//visibility:public"])
+
+sh_binary(
+    name = "cc65",
+    srcs = ["cc65.sh"]
+)
+
+py_binary(
+    name = "upload",
+    srcs = ["upload.py"],
+    deps=[
+    requirement("requests"),
+    ]
+)

@@ -1,0 +1,1 @@
+run:c64 --run_under="//tools:upload --run --host=10.0.0.219"

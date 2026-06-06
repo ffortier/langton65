@@ -1,0 +1,31 @@
+load("@bazel_skylib//lib:paths.bzl", "paths")
+
+hdrs = glob(["*.h"])
+
+srcs = glob(
+    [
+        "*.c",
+        "*.s",
+    ],
+    exclude = ["*_test.c"],
+)
+
+genrule(
+    name = "objects",
+    srcs = srcs + hdrs,
+    outs = [paths.replace_extension(file, ".o") for file in srcs],
+    cmd = "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+    tools = ["//tools:cc65"],
+    output_to_bindir = True
+)
+
+genrule(
+    name = "langton",
+    srcs = [
+        ":objects",
+        "c64-langton.cfg",
+    ],
+    outs = ["langton.prg"],
+    cmd = "cl65 -C $(rootpath c64-langton.cfg) -t c64 -o $@ $(execpaths :objects)",
+    executable = True,
+)

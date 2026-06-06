@@ -1,17 +1,22 @@
 #include <stdint.h>
 #include <peekpoke.h>
-#include <c64.h>
 #include <conio.h>
 #include <string.h>
+
+#if __C64__
+#include <c64.h>
+#endif
 
 void init_lookup(void);
 void init_buffers(void);
 void render_buffer(void);
 void next_gen(void);
 uint8_t match(uint32_t param);
-
+#include <stdio.h>
 int main() {
+    #if __C64__
     clrscr();
+    #endif
 
     POKE(53272, 21);  // Enable uppercase + graphics mode
     POKE(53281, 0); // Background

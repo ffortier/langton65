@@ -18,14 +18,14 @@
     lda buf0 + offset + 1, X
     ora sreg
     lsr
-    lsr
 
     lda buf0 + offset + 40, X
     ror
+    ror
     ora sreg
     sta sreg
-    lda #0
-    adc #0
+    lda buf0 + offset + 40, X
+    ror
     lsr
     lsr
     lsr
@@ -36,10 +36,8 @@
     lsr
     lsr
     lsr
-    lsr
     sta sreg + 1
 
-    lda buf0 + offset, X
     jsr _match
     ldx tmp4
     sta buf1 + offset, X
