@@ -16,6 +16,7 @@ genrule(
     outs = [paths.replace_extension(file, ".o") for file in srcs],
     cmd = "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
     output_to_bindir = True,
+    tags = ["local"],
     tools = ["//tools:cc65"],
 )
 
@@ -28,4 +29,5 @@ genrule(
     outs = ["langton.prg"],
     cmd = "cl65 -C $(rootpath c64-langton.cfg) -t c64 -o $@ $(execpaths :objects)",
     executable = True,
+    tags = ["local"],
 )

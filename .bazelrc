@@ -1,1 +1,10 @@
 run:c64 --run_under="//tools:upload --run --host=10.0.0.219"
+
+build --bes_results_url=https://ffortier.buildbuddy.io/invocation/
+build --bes_backend=grpcs://ffortier.buildbuddy.io
+common --remote_cache=grpcs://ffortier.buildbuddy.io
+common --remote_timeout=10m
+common --remote_executor=grpcs://ffortier.buildbuddy.io
+common --remote_cache_compression
+common --remote_cache_async
+common --jobs=50
