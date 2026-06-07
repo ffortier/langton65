@@ -1,0 +1,8 @@
+crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+crate.spec(package= "wasm-bindgen", version = "0.2.122")
+crate.spec(package= "wasm-bindgen-cli", version = "0.2.122")
+crate.spec(package= "peg", version = "0.8.6")
+crate.annotation(crate="wasm-bindgen-cli", gen_binaries=["wasm-bindgen"], extra_aliased_targets={"wasm-bindgen__bin":"wasm-bindgen__bin"})
+crate.from_specs()
+use_repo(crate, "crates")
+register_toolchains("//third_party/rust:wasm_bindgen_toolchain")

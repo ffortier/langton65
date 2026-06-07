@@ -9,5 +9,4 @@ pip.parse(
     python_version = "3.14",
     requirements_lock = "//third_party/python:requirements.txt",
 )
-
 use_repo(pip, "pypi")

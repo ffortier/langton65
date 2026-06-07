@@ -15,8 +15,8 @@ genrule(
     srcs = srcs + hdrs,
     outs = [paths.replace_extension(file, ".o") for file in srcs],
     cmd = "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+    output_to_bindir = True,
     tools = ["//tools:cc65"],
-    output_to_bindir = True
 )
 
 genrule(

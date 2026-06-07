@@ -1,0 +1,8 @@
+{
+    "name": "@root/runtime",
+    "type": "module",
+    "exports": "./src/index.ts",
+    "devDependencies": {
+        "@types/node": "catalog:"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "types": ["node"],
+        "strict": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "allowImportingTsExtensions": true,
+        "rewriteRelativeImportExtensions": true,
+        "noEmit": true
+    }
+}

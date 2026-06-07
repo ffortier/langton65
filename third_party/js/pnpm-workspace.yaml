@@ -1,0 +1,6 @@
+packages:
+    - ../../transpiler
+    - ../../runtime
+
+catalog:
+    "@types/node": "24.13.0"

@@ -1,0 +1,36 @@
+load("@aspect_rules_js//js:defs.bzl", "js_library", "js_test")
+load("@aspect_rules_js//npm:defs.bzl", "npm_package")
+load("@npm//:defs.bzl", "npm_link_all_packages", "npm_link_targets")
+
+npm_link_all_packages(name = "node_modules")
+
+js_library(
+    name = "runtime",
+    srcs = [
+        "package.json",
+        "src/index.ts",
+        "tsconfig.json",
+    ],
+    deps = npm_link_targets(),
+)
+
+js_test(
+    name = "test",
+    size = "small",
+    data = [
+        "src/test.ts",
+        ":runtime",
+    ],
+    entry_point = "src/test.ts",
+)
+
+npm_package(
+    name = "pkg",
+    srcs = [":runtime"],
+    root_paths = [
+        package_name(),
+    ],
+    visibility = [
+        "//third_party/js:__pkg__",
+    ],
+)
