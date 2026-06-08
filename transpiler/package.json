@@ -1,7 +1,11 @@
 {
     "name": "@root/transpiler",
     "type": "module",
-    "dependencies": {
+    "exports": {
+        "import": "./wasm.js",
+        "types": "./wasm.d.ts"
+    },
+    "peerDependencies": {
         "@root/runtime": "workspace:*"
     }
 }
