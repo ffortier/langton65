@@ -1,0 +1,16 @@
+package(default_visibility = ["//visibility:public"])
+
+alias(
+    name = "os",
+    actual = "@platforms//os",
+)
+
+constraint_value(
+    name = "c64",
+    constraint_setting = ":os",
+)
+
+constraint_value(
+    name = "sim65",
+    constraint_setting = ":os",
+)

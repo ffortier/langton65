@@ -1,0 +1,17 @@
+package(default_visibility = ["//visibility:public"])
+
+platform(
+    name = "c64",
+    constraint_values = [
+        "//platforms/os:c64",
+        "//platforms/cpu:6502",
+    ],
+)
+
+platform(
+    name = "sim6502",
+    constraint_values = [
+        "//platforms/os:sim65",
+        "//platforms/cpu:6502",
+    ],
+)

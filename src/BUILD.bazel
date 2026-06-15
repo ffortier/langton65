@@ -1,4 +1,6 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
+load(":sim65_test.bzl", "sim65_test")
+load("@bazel_lib//lib:transitions.bzl", "platform_transition_binary")
 
 hdrs = glob(["*.h"])
 
@@ -7,27 +9,68 @@ srcs = glob(
         "*.c",
         "*.s",
     ],
-    exclude = ["*_test.c"],
+    exclude = [
+        "*_test.c",
+        "main.c",
+    ],
 )
 
 genrule(
-    name = "objects",
+    name = "common_objects",
     srcs = srcs + hdrs,
     outs = [paths.replace_extension(file, ".o") for file in srcs],
-    cmd = "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+    cmd = select({
+        "//platforms/os:c64": "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+        "//platforms/os:sim65": "OUT=$(RULEDIR) CFLAGS='-O -t sim6502 -I./{pkg} -DTESTING' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+    }),
     output_to_bindir = True,
     tags = ["local"],
+    target_compatible_with = [
+        "//platforms/cpu:6502",
+    ],
     tools = ["//tools:cc65"],
 )
 
 genrule(
-    name = "langton",
+    name = "main_obj",
+    srcs = ["main.c"] + hdrs,
+    outs = ["main.o"],
+    cmd = "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+    output_to_bindir = True,
+    tags = ["local"],
+    target_compatible_with = [
+        "//platforms/os:c64",
+        "//platforms/cpu:6502",
+    ],
+    tools = ["//tools:cc65"],
+)
+
+genrule(
+    name = "main",
     srcs = [
-        ":objects",
+        ":common_objects",
+        ":main_obj",
         "c64-langton.cfg",
     ],
     outs = ["langton.prg"],
-    cmd = "cl65 -C $(rootpath c64-langton.cfg) -t c64 -o $@ $(execpaths :objects)",
+    cmd = "cl65 -C $(rootpath c64-langton.cfg) -t c64 -o $@ $(execpath main_obj) $(execpaths :common_objects)",
     executable = True,
     tags = ["local"],
+    target_compatible_with = [
+        "//platforms/os:c64",
+        "//platforms/cpu:6502",
+    ],
+)
+
+platform_transition_binary(
+    name = "c64",
+    binary = ":main",
+    target_platform = "//platforms:c64",
+    visibility = ["//visibility:public"],
+)
+
+sim65_test(
+    name = "tests",
+    srcs = glob(["*_test.c"]),
+    deps = [":common_objects"],
 )

@@ -8,6 +8,8 @@ bazel_dep(name = "aspect_rules_js", version = "3.2.1")
 bazel_dep(name = "rules_nodejs", version = "6.7.4")
 bazel_dep(name = "rules_rust", version = "0.70.0")
 bazel_dep(name = "rules_rust_wasm_bindgen", version = "0.70.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "bazel_lib", version = "3.3.1")
 
 include("//third_party/python:python.MODULE.bazel")
 include("//third_party/js:js.MODULE.bazel")

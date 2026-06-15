@@ -54,7 +54,17 @@ col_i = 5
     inx
     cpx #250
     bne @loop
-@end:
+.endscope
+
+.scope
+    lda #0
+    ldx #0
+@loop:
+    sta padding1, X
+    sta padding2, X
+    inx
+    cpx #40
+    bne @loop
 .endscope
 
     ; 1st row
@@ -183,5 +193,7 @@ col_i = 5
 
 .segment "BSS"
 
+padding1: .res 40
 buf0: .res 1024
+padding2: .res 40
 buf1: .res 1024
