@@ -16,5 +16,5 @@ extern ruleset_t r4;
 extern ruleset_t r5;
 extern ruleset_t r6;
 extern ruleset_t r7;
-
+extern uint8_t magic[4];
 #endif

@@ -1,0 +1,3 @@
+multitool = use_extension("@rules_multitool//multitool:extension.bzl", "multitool")
+multitool.hub(lockfile = "//third_party/multitool:multitool.lock.json")
+use_repo(multitool, "multitool")

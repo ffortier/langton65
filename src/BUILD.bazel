@@ -21,7 +21,7 @@ genrule(
     outs = [paths.replace_extension(file, ".o") for file in srcs],
     cmd = select({
         "//platforms/os:c64": "OUT=$(RULEDIR) CFLAGS='-O -t c64 -I./{pkg}' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
-        "//platforms/os:sim65": "OUT=$(RULEDIR) CFLAGS='-O -t sim6502 -I./{pkg} -DTESTING' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
+        "//platforms/os:sim65": "OUT=$(RULEDIR) CFLAGS='-t sim6502 -I./{pkg}' SFLAGS='-DTESTING' $(execpath //tools:cc65) $(SRCS)".format(pkg = package_name()),
     }),
     output_to_bindir = True,
     tags = ["local"],

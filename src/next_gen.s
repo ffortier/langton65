@@ -2,11 +2,6 @@
 .import buf0, buf1, _match
 .export _next_gen
 
-.export _computemask_test_top
-.export _computemask_test_right
-.export _computemask_test_bottom
-.export _computemask_test_left
-
 .macro computemask offset
     lda #0
     sta sreg
@@ -71,6 +66,13 @@
     rts
 .endproc
 
+.ifdef TESTING
+.export _computemask_test_top
+.export _computemask_test_right
+.export _computemask_test_bottom
+.export _computemask_test_left
+.export _computemask_match_test
+
 .macro computemask_test test_offset
     ldx #250
     lda #0
@@ -109,3 +111,42 @@
     computemask_test 40
     rts
 .endproc
+
+.proc _computemask_match_test
+    ldx #250
+    lda #0
+
+@loop:
+    sta buf0, X
+    dex
+    bne @loop
+@end:
+    ; 002525
+    ldx #1
+    lda #0
+    sta buf0, X
+
+    ldx #42
+    lda #2
+    sta buf0, X
+
+    ldx #81
+    lda #5
+    sta buf0, X
+
+    ldx #40
+    lda #2
+    sta buf0, X
+
+    ldx #41
+    lda #7
+    sta buf0, X
+    stx tmp4
+
+    computemask 0
+    jsr _match
+
+    rts
+.endproc
+
+.endif

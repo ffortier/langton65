@@ -1,11 +1,17 @@
 load("@bazel_env.bzl", "bazel_env")
+load("@multitool//:tools.bzl", "TOOLS")
 
 bazel_env(
     name = "bazel_env",
     tools = {
         "buildifier": "@buildifier_prebuilt//:buildifier",
         "pnpm": "@pnpm",
-    },
+        "cargo": "@rules_rust//tools/upstream_wrapper:cargo",
+        "cargo_clippy": "@rules_rust//tools/upstream_wrapper:cargo_clippy",
+        "rustc": "@rules_rust//tools/upstream_wrapper:rustc",
+        "rustfmt": "@rules_rust//tools/upstream_wrapper:rustfmt",
+        "rustdoc": "@rules_rust//tools/upstream_wrapper:rustdoc",
+    } | TOOLS,
 )
 
 alias(

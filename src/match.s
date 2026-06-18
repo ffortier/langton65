@@ -1,7 +1,7 @@
 
-.importzp tmp1, ptr1, sreg
+.importzp tmp1, tmp3, ptr1, sreg
 .importzp ruleset_lookup
-
+.import _rotate, _dump
 .export _match
 
 ; Loads the size of a ruleset
@@ -32,12 +32,17 @@
 ;   A next cell value
 .proc _match
     sta tmp1
+    lda #4
+    sta tmp3
+    lda tmp1
+
+@again:
     ldsz
 
 @loop:
     lda (ptr1), Y
-    and sreg + 0
-    cmp sreg + 0
+    and #$f8
+    cmp sreg
     bne @next
     jmp @found
 @next:
@@ -47,8 +52,14 @@
     dex
     bne @loop
 @end:
+    dec tmp3
+    bne @retry
     lda tmp1
     rts
+@retry:
+    lda tmp1
+    jsr _rotate
+    jmp @again
 @found:
     iny
     lda (ptr1), Y
@@ -56,6 +67,6 @@
     bne @next1
     dey
     lda (ptr1), Y
-    and #7
+    and #$07
     rts
 .endproc

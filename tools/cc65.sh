@@ -11,7 +11,7 @@ for file in "$@"
 do
     out_file="${OUT?"missing out"}/${file##*/}"
     case "$file" in
-        *.s) ca65 -o "${out_file%.s}.o" "$file" || die "Failed to compile $file" ;;
+        *.s) ca65 $SFLAGS -o "${out_file%.s}.o" "$file" || die "Failed to compile $file" ;;
         *.c) cl65 $CFLAGS -c -o "${out_file%.c}.o" "$file" || die "Failed to compile $file" ;;
         *) ;; # Ignore headers and shit
     esac
