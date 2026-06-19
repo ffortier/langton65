@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <stdio.h>
 #include <inttypes.h>
-#include <stdlib.h>
 #include "ruleset.h"
 
 uint8_t match(uint32_t);
@@ -43,25 +42,7 @@ int main() {
     assert(match(((uint32_t)027200 << 16) | 7) == 0);
     assert(match(((uint32_t)072020 << 16) | 7) == 0);
     assert(match(((uint32_t)020270 << 16) | 7) == 0);
-
-
-
     assert(match(((uint32_t)000200 << 16) | 0) == 0);
 
     return 0;
-}
-
-void dump(uint32_t regs) {
-    uint16_t sreg;
-    uint8_t x;
-    uint8_t a;
-
-    sreg = regs>>16;
-    x = (regs >> 8) & 0xff;
-    a = regs & 0xff;
-
-    printf("regs = %08"PRIx32"\n", regs);
-    printf("sreg = %05"PRIo16", x=%"PRIu8", y=%"PRIu8"\n", sreg, x, a);
-
-    exit(1);
 }

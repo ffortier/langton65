@@ -4,40 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-catalogs:
-  default:
-    '@types/node':
-      specifier: 24.13.0
-      version: 24.13.0
-
 importers:
 
   .: {}
-
-  ../../runtime:
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.0
-
-  ../../transpiler:
-    dependencies:
-      '@root/runtime':
-        specifier: workspace:*
-        version: link:../runtime
-
-packages:
-
-  '@types/node@24.13.0':
-    resolution: {integrity: sha512-5vtOqGQr4NJKeEzV441FcOi2MeG9UTWq9LqVLGneDdu4vlX17H8kQ2PA2UmNwCUGPVDj4oBjNhS7ReVEIWJJrg==}
-
-  undici-types@7.18.2:
-    resolution: {integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w==}
-
-snapshots:
-
-  '@types/node@24.13.0':
-    dependencies:
-      undici-types: 7.18.2
-
-  undici-types@7.18.2: {}

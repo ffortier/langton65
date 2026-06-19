@@ -4,8 +4,8 @@
 .export buf0
 .export buf1
 
-row_i = 5
-col_i = 5
+row_i = 15
+col_i = 1
 
 .macro staddr  addr, ptr
     lda #<addr

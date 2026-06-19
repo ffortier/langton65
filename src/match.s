@@ -4,12 +4,6 @@
 .import _rotate, _dump
 .export _match
 
-; Loads the size of a ruleset
-; Params
-;   A ruleset number
-; Returns
-;   X ruleset size
-;   Y rules offset
 .macro ldsz
     asl
     tax
@@ -23,13 +17,6 @@
     tax
 .endmacro
 
-; match the current state to the next
-; Params
-;   A current cell value
-;   sreg lo byte of the neighbour mask
-;   sreg hi byte of th neighbour mask
-; Returns
-;   A next cell value
 .proc _match
     sta tmp1
     lda #4
