@@ -24,7 +24,7 @@ int main() {
     while(1) {
         init_buffers();
 
-        for(count = 0; count < 1000; count++) {
+        for(count = 0; count < 750; count++) {
             render_buffer();
             next_gen();
         }
